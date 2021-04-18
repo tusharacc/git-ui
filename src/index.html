@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>GIT UI</title>
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
+    <link rel="stylesheet" href="photon/css/photon.min.css">
+    <script src="photon/template-app/app.js" charset="utf-8"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body style="background: white;">
+    <div class="window">
+        <!-- .toolbar-header sits at the top of your app -->
+        <header class="toolbar toolbar-header">
+            <h1 class="title">GIT UI</h1>
+
+            <div class="toolbar-actions">
+                <div class="btn-group">
+                    <button class="btn btn-default">
+                        <span class="icon icon-home"></span>
+                    </button>
+                    <button class="btn btn-default">
+                        <span class="icon icon-folder"></span>
+                    </button>
+                    <button class="btn btn-default" onclick="raiseEvent('restart-app')">
+                        <span class="icon icon-cw"></span>
+                    </button>
+                    <button class="btn btn-default">
+                        <span class="icon icon-popup"></span>
+                    </button>
+                    <button class="btn btn-default">
+                        <span class="icon icon-shuffle"></span>
+                    </button>
+                </div>
+
+                <button class="btn btn-default">
+                    <span class="icon icon-home icon-text"></span>
+                    Filters
+                </button>
+
+                <button class="btn btn-default pull-right" onclick="raiseEvent('quit-app')">
+                    <span class="icon icon-cancel-squared"></span>
+                </button>
+            </div>
+        </header>
+
+        <!-- Your app's content goes inside .window-content -->
+
+        <div class="window-content">
+            <div class="pane-group">
+                <div class="pane">...</div>
+                <div class="pane">...</div>
+                <div class="pane">...</div>
+            </div>
+        </div>
+
+    </div>
+    <script src="renderer.js"></script>
+</body>
+
+</html>
