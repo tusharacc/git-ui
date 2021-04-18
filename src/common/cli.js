@@ -10,3 +10,8 @@ function callExecFile(cmd, ...options){
           });
     })
 }
+
+
+module.exports = {
+    callExecFile,
+}
