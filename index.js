@@ -1,6 +1,7 @@
-const { app, BrowserWindow, ipcMain } = require('electron')
+const { app, BrowserWindow, ipcMain, dialog } = require('electron')
 const path = require('path')
 
+let contents;
 function createWindow () {
   const win = new BrowserWindow({
     width: 800,
@@ -13,6 +14,7 @@ function createWindow () {
   })
 
   win.loadFile('src/index.html')
+  contents = win.webContents
   win.webContents.openDevTools()
 }
 
@@ -39,4 +41,13 @@ ipcMain.on('restart-app',(event,args) =>{
 
 ipcMain.on('quit-app',(event,args) =>{
     app.exit()
+})
+
+ipcMain.on('open-folder',(event,args) =>{
+  dialog.showOpenDialog({title: "Select Local Repository",properties:['openDirectory']})
+  .then((data) => {
+    console.log('The folder selected is', data)
+    contents.send('folder-selected',data)
+  })
+  
 })
