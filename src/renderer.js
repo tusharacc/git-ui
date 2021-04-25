@@ -47,6 +47,14 @@ ipcRenderer.on('folder-selected',(event,args) =>{
         pane1.insertAdjacentHTML('beforeend',log)
     })
     .catch(err => console.log("The error log is",err))
+    callExecFile('git','status')
+    .then((data)=>{
+        console.log("The output is", data)
+        const log = textarea.replace('@description','STATUS').replace('@content',data)
+        pane2.insertAdjacentHTML('beforeend',log)
+    })
+    .catch(err => console.log("Error in git status"))
+
     
 })
 
