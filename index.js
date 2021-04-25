@@ -1,4 +1,5 @@
 const { app, BrowserWindow, ipcMain, dialog } = require('electron')
+const prompt = require('electron-prompt');
 const path = require('path')
 
 let contents;
@@ -50,5 +51,27 @@ ipcMain.on('open-folder',(event,args) =>{
     console.log('The folder selected is', data)
     contents.send('folder-selected',data)
   })
+  
+})
+
+ipcMain.on('download-repo',(event,args) =>{
+  prompt({
+    title: 'Enter Github Repo URL',
+    label: 'GITHUB REPO URL:',
+    value: 'http://example.org',
+    inputAttrs: {
+        type: 'url'
+    },
+    type: 'input'
+})
+.then((r) => {
+    if(r === null) {
+        console.log('user cancelled');
+    } else {
+        console.log('result', r);
+        contents.send('github-repo',r)
+    }
+})
+.catch(console.error);
   
 })
