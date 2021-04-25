@@ -1,5 +1,8 @@
 const {ipcRenderer, dialog} = require('electron')
+const process = require('process')
+const path = require('path')
 const { callExecFile } = require('./common/cli')
+
 
 let pane1 = document.getElementById('pane-1')
 let pane2 = document.getElementById('pane-2')
@@ -31,6 +34,10 @@ function openFolderForSelection(){
     raiseEvent('open-folder')
 }
 
+function downloadGithubRepo(){
+    raiseEvent('download-repo')
+}
+
 ipcRenderer.on('folder-selected',(event,args) =>{
     console.log("The file selected is",args.filePaths[0])
     callExecFile('git','branch','-av')
@@ -54,8 +61,20 @@ ipcRenderer.on('folder-selected',(event,args) =>{
         pane2.insertAdjacentHTML('beforeend',log)
     })
     .catch(err => console.log("Error in git status"))
-
-    
 })
 
+ipcRenderer.on('github-repo',(event,args)=>{
+    console.log("The github repo is",args)
+    const downloadPath = path.join(path.normalize(`${__dirname}/..`),'downloaded-repo')
+    console.log("The download path is", downloadPath)
+    let cwd = process.cwd()
+    process.chdir(downloadPath)
+    callExecFile('git','clone',args)
+    .then( (data)=> {
+        console.log("The output is", data)
+        
+    })
+    .catch(err => console.log("The error log is",err))
+
+})
 
